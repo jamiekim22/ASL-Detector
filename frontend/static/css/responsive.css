@@ -1,0 +1,98 @@
+/* Mobile First Approach */
+@media (max-width: 576px) {
+    .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    #current-prediction {
+        font-size: 2rem;
+    }
+    
+    .prediction-overlay {
+        position: static !important;
+        margin: 1rem 0 !important;
+    }
+    
+    #camera-controls {
+        position: static !important;
+        margin: 1rem 0 !important;
+        text-align: center;
+    }
+    
+    .stat-value {
+        font-size: 1.2rem;
+    }
+    
+    .letter-badge {
+        min-width: 30px;
+        padding: 0.3rem;
+        font-size: 0.9rem;
+    }
+    
+    .navbar-nav {
+        text-align: center;
+    }
+}
+
+/* Tablet */
+@media (min-width: 577px) and (max-width: 768px) {
+    #current-prediction {
+        font-size: 2.5rem;
+    }
+    
+    .prediction-overlay {
+        min-width: 180px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+    .camera-container {
+        min-height: 400px;
+    }
+    
+    #camera-feed {
+        min-height: 400px;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+    .container-fluid {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}
+
+/* Camera specific responsive rules */
+@media (max-width: 768px) {
+    #camera-feed {
+        max-height: 300px;
+    }
+    
+    .practice-letter {
+        font-size: 3rem;
+    }
+    
+    #practice-feed {
+        width: 100%;
+        height: auto;
+        max-width: 300px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .modal,
+    #camera-controls,
+    footer {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+}

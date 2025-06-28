@@ -1,0 +1,83 @@
+/* Camera Container */
+.camera-container {
+    position: relative;
+    background-color: #000;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+/* Prediction Overlay */
+.prediction-overlay {
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    min-width: 200px;
+}
+
+/* Navigation Enhancements */
+.navbar-brand i {
+    color: #ffc107;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+}
+
+/* Modal Enhancements */
+.modal-content {
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Form Controls */
+.form-range::-webkit-slider-thumb {
+    background-color: var(--primary-color);
+}
+
+.form-range::-moz-range-thumb {
+    background-color: var(--primary-color);
+    border: none;
+}
+
+/* Alert Variants */
+.alert-prediction {
+    background-color: #e3f2fd;
+    border-color: #bbdefb;
+    color: #1565c0;
+}
+
+/* Progress Bars */
+.progress {
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Practice Mode Styles */
+.practice-letter {
+    font-size: 4rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.completed-letter {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--success-color);
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+/* Tooltips */
+.tooltip-inner {
+    background-color: var(--dark-color);
+    color: white;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
