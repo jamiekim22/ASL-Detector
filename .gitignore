@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Dev environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+logs/
+*.tmp
+temp/
+
+# Environment variables
+.env
+.env.local
+
+# Dev/training artifacts
+wandb/
+mlruns/
+.mlflow/
+experiments/
+training_logs/
+models/checkpoints/  # Keep final models, exclude training checkpoints
+
+# Large raw training data
+raw_training_data/
+data_collection/
+*.zip
+*.tar.gz

@@ -1,0 +1,21 @@
+# Default configuration - Use setup scripts for best experience
+# Windows: run setup.bat
+# macOS: run ./setup.sh
+
+services:
+  sign-language-app:
+    build: .
+    container_name: asl-recognition
+    volumes:
+      - ./models:/app/models
+      - ./training_data:/app/training_data
+      - ./src:/app/src
+    environment:
+      - DISPLAY=host.docker.internal:0
+      - CAMERA_INDEX=0
+      - PLATFORM=default
+    ports:
+      - "6000:6000"
+    network_mode: bridge
+    stdin_open: true
+    tty: true
