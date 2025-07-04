@@ -31,7 +31,7 @@ pause
 echo Starting with Windows configuration...
 echo Using Python 3.11 for Docker build...
 
-docker-compose -f ./../docker-compose-dev.yml up --build
+docker-compose -f ./docker-compose-dev.yml up --build
 
 echo.
 echo If you see camera errors, make sure no other applications are using your webcam.
