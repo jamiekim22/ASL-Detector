@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}ASL Recognition App - Real-time Recognition{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <!-- Camera and Prediction Display -->
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-video me-2"></i>Live Camera Feed
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    <!-- Camera View Component -->
+                    <div id="camera-container" class="position-relative">
+                        <video id="camera-feed" class="w-100" autoplay muted></video>
+                        <canvas id="overlay-canvas" class="position-absolute top-0 start-0"></canvas>
+                        
+                        <!-- Prediction Overlay -->
+                        <div id="prediction-overlay" class="position-absolute top-0 end-0 m-3">
+                            <div class="bg-dark bg-opacity-75 text-white p-3 rounded">
+                                <h3 id="current-prediction" class="mb-2 text-center">-</h3>
+                                <div class="progress mb-2" style="height: 10px;">
+                                    <div id="confidence-bar" class="progress-bar bg-success" style="width: 0%"></div>
+                                </div>
+                                <small id="confidence-text" class="text-muted">Confidence: 0%</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Camera Controls -->
+                        <div id="camera-controls" class="position-absolute bottom-0 start-0 m-3">
+                            <button id="start-camera" class="btn btn-success me-2">
+                                <i class="fas fa-play me-1"></i>Start Camera
+                            </button>
+                            <button id="stop-camera" class="btn btn-danger me-2" disabled>
+                                <i class="fas fa-stop me-1"></i>Stop Camera
+                            </button>
+                            <button id="settings-toggle" class="btn btn-secondary">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar with History and Controls -->
+        <div class="col-lg-4">
+            <!-- Connection Status -->
+            <div class="card shadow mb-3">
+                <div class="card-body">
+                    <div id="connection-status" class="d-flex align-items-center">
+                        <div id="status-indicator" class="status-dot bg-secondary me-2"></div>
+                        <span id="status-text">Connecting...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Letter History -->
+            <div class="card shadow mb-3">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-history me-2"></i>Recognition History
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div id="letter-history" class="d-flex flex-wrap gap-2">
+                        <!-- History letters will be added here dynamically -->
+                    </div>
+                    <button id="clear-history" class="btn btn-sm btn-outline-secondary mt-2">
+                        <i class="fas fa-trash me-1"></i>Clear
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="card shadow">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>Session Stats
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="stat-value" id="total-predictions">0</div>
+                            <div class="stat-label">Predictions</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-value" id="avg-confidence">0%</div>
+                            <div class="stat-label">Avg Confidence</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-value" id="session-time">00:00</div>
+                            <div class="stat-label">Session Time</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="modal fade" id="settingsModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Camera Settings</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="camera-select" class="form-label">Camera Device</label>
+                    <select id="camera-select" class="form-select">
+                        <option value="">Select Camera...</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="confidence-threshold" class="form-label">Confidence Threshold</label>
+                    <input type="range" id="confidence-threshold" class="form-range" min="0" max="100" value="70">
+                    <div class="d-flex justify-content-between">
+                        <small>0%</small>
+                        <small id="threshold-value">70%</small>
+                        <small>100%</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="save-settings">Save Settings</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

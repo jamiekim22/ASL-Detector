@@ -15,18 +15,20 @@ RUN apt-get update && apt-get install -y \
     v4l-utils \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
+COPY ../../frontend/templates /app/frontend/templates
+COPY ../../frontend/static /app/frontend/static
 
 # Create empty directory for conditional mounting
 RUN mkdir -p /tmp/empty
 
 # Copy platform detection script
-COPY scripts/detect_camera.py .
+# COPY scripts/detect_camera.py .
 
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
-CMD ["python", "scripts/start_app.py"]
+CMD ["python", "backend/app/main.py"]
