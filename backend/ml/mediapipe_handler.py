@@ -1,0 +1,1 @@
+# Hand detection using mediapipe

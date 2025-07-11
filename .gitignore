@@ -27,20 +27,22 @@ logs/
 *.tmp
 temp/
 
-# Environment variables
+# envs
 .env
 .env.local
 
 # Dev/training artifacts
+dev/
+experiments/
 wandb/
 mlruns/
 .mlflow/
-experiments/
+
 training_logs/
-models/checkpoints/  # Keep final models, exclude training checkpoints
 
 # Large raw training data
-raw_training_data/
-data_collection/
+ml_development/data/
 *.zip
 *.tar.gz
+
+node_modules/
