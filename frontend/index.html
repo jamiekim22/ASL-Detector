@@ -1,9 +1,14 @@
-{% extends "base.html" %}
-
-{% block title %}ASL Recognition App - Real-time Recognition{% endblock %}
-
-{% block content %}
-<div class="container-fluid py-4">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASL Recognition App - Real-time Recognition</title>
+  <link href="styles/main.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto p-4">
+    <!-- Camera and Prediction UI -->
     <div class="row">
         <!-- Camera and Prediction Display -->
         <div class="col-lg-8">
@@ -138,8 +143,11 @@
 </div>
 {% endblock %}
 
-{% block extra_js %}
-<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
-<script src="{{ url_for('static', filename='js/ui.js') }}"></script>
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-{% endblock %}
+  </div>
+  <!-- Scripts -->
+  <script type="module" src="js/camera.js"></script>
+  <script type="module" src="js/websocket.js"></script>
+  <script type="module" src="js/ui.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
