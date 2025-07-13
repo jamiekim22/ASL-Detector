@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+* This file contains Tailwind CSS component definitions.
+* It is processed by Tailwind to generate the final CSS output.
+* If editing this file, ensure to rebuild the CSS using the Tailwind CLI or your build tool.
+    npx tailwindcss -i ./styles/main.css -o ./styles/output.css --build
+*/
+
+@layer components {
+  /* Layout */
+  .app-body {
+    @apply bg-gray-50 min-h-screen;
+  }
+  
+  .main-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  }
+  
+  .grid-layout {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-8;
+  }
+  
+  /* Navigation */
+  .nav-bar {
+    @apply bg-white shadow-sm border-b;
+  }
+  
+  .nav-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .nav-content {
+    @apply flex justify-between h-16;
+  }
+  
+  .nav-brand {
+    @apply flex items-center;
+  }
+  
+  .nav-title {
+    @apply text-xl font-bold text-gray-900;
+  }
+  
+  .nav-actions {
+    @apply flex items-center space-x-4;
+  }
+  
+  .nav-help-btn {
+    @apply text-gray-500 hover:text-gray-700;
+  }
+  
+  .nav-icon {
+    @apply w-5 h-5;
+  }
+  
+  /* Cards */
+  .card {
+    @apply bg-white rounded-lg shadow-sm border;
+  }
+  
+  .card-header {
+    @apply px-6 py-4 border-b border-gray-200;
+  }
+  
+  .card-title {
+    @apply text-lg font-medium text-gray-900 flex items-center;
+  }
+  
+  .card-content {
+    @apply p-6;
+  }
+  
+  .card-content-no-padding {
+    @apply p-0;
+  }
+  
+  /* Camera */
+  .camera-section {
+    @apply lg:col-span-2;
+  }
+  
+  .camera-container {
+    @apply relative bg-gray-900 aspect-video;
+  }
+  
+  .camera-feed {
+    @apply w-full h-full object-cover;
+  }
+  
+  .camera-overlay {
+    @apply absolute inset-0;
+  }
+  
+  .prediction-overlay {
+    @apply absolute top-4 right-4;
+  }
+  
+  .prediction-box {
+    @apply bg-black bg-opacity-75 text-white p-4 rounded-lg;
+  }
+  
+  .current-prediction {
+    @apply text-2xl font-bold text-center mb-2;
+  }
+  
+  .confidence-bar-container {
+    @apply w-full bg-gray-200 rounded-full h-2 mb-2;
+  }
+  
+  .confidence-bar {
+    @apply bg-green-500 h-2 rounded-full;
+  }
+  
+  .confidence-text {
+    @apply text-sm text-gray-300;
+  }
+  
+  .camera-controls {
+    @apply absolute bottom-4 left-4;
+  }
+  
+  .controls-group {
+    @apply flex space-x-2;
+  }
+  
+  /* Button */
+  .btn-start {
+    @apply bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center;
+  }
+  
+  .btn-stop {
+    @apply bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center;
+  }
+  
+  .btn-settings {
+    @apply bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg;
+  }
+  
+  .btn-clear {
+    @apply text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md flex items-center;
+  }
+  
+  .btn-icon {
+    @apply w-4 h-4 mr-2;
+  }
+  
+  .btn-icon-only {
+    @apply w-4 h-4;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    @apply space-y-6;
+  }
+  
+  .status-container {
+    @apply flex items-center;
+  }
+  
+  .status-indicator {
+    @apply w-3 h-3 rounded-full bg-gray-400 mr-3;
+  }
+  
+  .status-text {
+    @apply text-sm font-medium text-gray-600;
+  }
+  
+  .history-letters {
+    @apply flex flex-wrap gap-2 mb-4;
+  }
+  
+  .stats-grid {
+    @apply grid grid-cols-3 gap-4 text-center;
+  }
+  
+  .stat-value {
+    @apply text-2xl font-bold text-gray-900;
+  }
+  
+  .stat-label {
+    @apply text-sm text-gray-500;
+  }
+  
+  /* Modal Components */
+  .modal-overlay {
+    @apply fixed inset-0 bg-gray-600 bg-opacity-50 hidden;
+  }
+  
+  .modal-container {
+    @apply flex items-center justify-center min-h-screen p-4;
+  }
+  
+  .modal-content {
+    @apply bg-white rounded-lg shadow-xl max-w-md w-full;
+  }
+  
+  .modal-header {
+    @apply px-6 py-4 border-b border-gray-200;
+  }
+  
+  .modal-title {
+    @apply text-lg font-medium text-gray-900;
+  }
+  
+  .modal-close {
+    @apply absolute top-4 right-4 text-gray-400 hover:text-gray-600;
+  }
+  
+  .modal-close-icon {
+    @apply w-6 h-6;
+  }
+  
+  .modal-body {
+    @apply p-6;
+  }
+  
+  .modal-footer {
+    @apply px-6 py-4 border-t border-gray-200 flex justify-end space-x-3;
+  }
+  
+  /* Form */
+  .form-group {
+    @apply mb-6;
+  }
+  
+  .form-label {
+    @apply block text-sm font-medium text-gray-700 mb-2;
+  }
+  
+  .form-select {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500;
+  }
+  
+  .form-range {
+    @apply w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer;
+  }
+  
+  .form-range-labels {
+    @apply flex justify-between text-sm text-gray-500 mt-1;
+  }
+  
+  .form-range-value {
+    @apply font-medium;
+  }
+  
+  .btn-cancel {
+    @apply px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md;
+  }
+  
+  .btn-save {
+    @apply px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md;
+  }
+}
