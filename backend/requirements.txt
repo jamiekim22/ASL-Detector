@@ -1,5 +1,6 @@
 # Web Framework & API
 fastapi==0.115.14
+fastapi[standard]==0.115.14
 uvicorn[standard]==0.35.0
 python-socketio==5.9.0
 python-engineio==4.7.1
