@@ -4,6 +4,12 @@ from starlette.middleware.cors import CORSMiddleware
 from .config import settings
 from .api.routes import router as api_router
 from .ml.model_loader import load_model
+from loguru import logger
+
+# In-memory log cache
+LOG_CACHE: list[str] = []
+# Capture INFO+ messages to cache
+logger.add(lambda record: LOG_CACHE.append(record["message"]), level="INFO")
 
 app = FastAPI(
     title=settings.app_name,
