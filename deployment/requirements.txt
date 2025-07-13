@@ -1,0 +1,31 @@
+# Production Web Framework
+fastapi==0.115.14
+uvicorn[standard]==0.35.0
+gunicorn==23.0.0
+
+# Core Dependencies
+opencv-python-headless==4.11.0.86
+mediapipe==0.10.21
+tensorflow==2.19.0
+numpy==1.26.4
+Pillow==10.1.0
+
+# Real-time Communication
+python-socketio==5.9.0
+websockets==12.0
+
+# Configuration
+python-dotenv==1.0.0
+pydantic==2.5.0
+
+# Logging
+loguru==0.7.3
+
+# Async Support
+aiofiles==23.2.1
+
+# Caching (Optional)
+redis==5.0.1
+
+# Health Checks
+httpx==0.25.2
