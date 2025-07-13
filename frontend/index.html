@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ASL Recognition App - Real-time Recognition</title>
-  <link href="styles/main.css" rel="stylesheet">
+  <link href="styles/output.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="app-body">
   <!-- Navigation -->
-  <nav class="bg-white shadow-sm border-b">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
-        <div class="flex items-center">
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <div class="nav-content">
+        <div class="nav-brand">
           <div class="flex-shrink-0">
-            <h1 class="text-xl font-bold text-gray-900">ASL Recognition</h1>
+            <h1 class="nav-title">ASL Recognition</h1>
           </div>
         </div>
-        <div class="flex items-center space-x-4">
-          <button id="help-btn" class="text-gray-500 hover:text-gray-700">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="nav-actions">
+          <button id="help-btn" class="nav-help-btn">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </button>
@@ -27,51 +27,51 @@
     </div>
   </nav>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="main-container">
     <!-- Camera and Prediction UI -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="grid-layout">
         <!-- Camera and Prediction Display -->
-        <div class="lg:col-span-2">
-            <div class="bg-white rounded-lg shadow-sm border">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h3 class="text-lg font-medium text-gray-900 flex items-center">
+        <div class="camera-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
                         Live Camera Feed
                     </h3>
                 </div>
-                <div class="p-0">
+                <div class="card-content-no-padding">
                     <!-- Camera View Component -->
-                    <div id="camera-container" class="relative bg-gray-900 aspect-video">
-                        <video id="camera-feed" class="w-full h-full object-cover" autoplay muted></video>
-                        <canvas id="overlay-canvas" class="absolute inset-0"></canvas>
+                    <div id="camera-container" class="camera-container">
+                        <video id="camera-feed" class="camera-feed" autoplay muted></video>
+                        <canvas id="overlay-canvas" class="camera-overlay"></canvas>
                         
                         <!-- Prediction Overlay -->
-                        <div id="prediction-overlay" class="absolute top-4 right-4">
-                            <div class="bg-black bg-opacity-75 text-white p-4 rounded-lg">
-                                <h3 id="current-prediction" class="text-2xl font-bold text-center mb-2">-</h3>
-                                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
-                                    <div id="confidence-bar" class="bg-green-500 h-2 rounded-full" style="width: 0%"></div>
+                        <div id="prediction-overlay" class="prediction-overlay">
+                            <div class="prediction-box">
+                                <h3 id="current-prediction" class="current-prediction">-</h3>
+                                <div class="confidence-bar-container">
+                                    <div id="confidence-bar" class="confidence-bar" style="width: 0%"></div>
                                 </div>
-                                <p id="confidence-text" class="text-sm text-gray-300">Confidence: 0%</p>
+                                <p id="confidence-text" class="confidence-text">Confidence: 0%</p>
                             </div>
                         </div>
                         
                         <!-- Camera Controls -->
-                        <div id="camera-controls" class="absolute bottom-4 left-4">
-                            <div class="flex space-x-2">
-                                <button id="start-camera" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div id="camera-controls" class="camera-controls">
+                            <div class="controls-group">
+                                <button id="start-camera" class="btn-start">
+                                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h6m2 5H7a2 2 0 01-2-2V8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2z"></path>
                                     </svg>
                                     Start Camera
                                 </button>
-                                <button id="stop-camera" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center" disabled>
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <button id="stop-camera" class="btn-stop" disabled>
+                                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
                                     Stop Camera
                                 </button>
-                                <button id="settings-toggle" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <button id="settings-toggle" class="btn-settings">
+                                    <svg class="btn-icon-only" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     </svg>
@@ -84,28 +84,30 @@
         </div>
         
         <!-- Sidebar with History and Controls -->
-        <div class="space-y-6">
+        <div class="sidebar">
             <!-- Connection Status -->
-            <div class="bg-white rounded-lg shadow-sm border p-6">
-                <div id="connection-status" class="flex items-center">
-                    <div id="status-indicator" class="w-3 h-3 rounded-full bg-gray-400 mr-3"></div>
-                    <span id="status-text" class="text-sm font-medium text-gray-600">Connecting...</span>
+            <div class="card">
+                <div class="card-content">
+                    <div id="connection-status" class="status-container">
+                        <div id="status-indicator" class="status-indicator"></div>
+                        <span id="status-text" class="status-text">Connecting...</span>
+                    </div>
                 </div>
             </div>
             
             <!-- Letter History -->
-            <div class="bg-white rounded-lg shadow-sm border">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h4 class="text-lg font-medium text-gray-900 flex items-center">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
                         Recognition History
                     </h4>
                 </div>
-                <div class="p-6">
-                    <div id="letter-history" class="flex flex-wrap gap-2 mb-4">
+                <div class="card-content">
+                    <div id="letter-history" class="history-letters">
                         <!-- History letters will be added here dynamically -->
                     </div>
-                    <button id="clear-history" class="text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md flex items-center">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button id="clear-history" class="btn-clear">
+                        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                         </svg>
                         Clear
@@ -114,25 +116,25 @@
             </div>
             
             <!-- Quick Stats -->
-            <div class="bg-white rounded-lg shadow-sm border">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h4 class="text-lg font-medium text-gray-900 flex items-center">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
                         Session Stats
                     </h4>
                 </div>
-                <div class="p-6">
-                    <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="card-content">
+                    <div class="stats-grid">
                         <div>
-                            <div id="total-predictions" class="text-2xl font-bold text-gray-900">0</div>
-                            <div class="text-sm text-gray-500">Predictions</div>
+                            <div id="total-predictions" class="stat-value">0</div>
+                            <div class="stat-label">Predictions</div>
                         </div>
                         <div>
-                            <div id="avg-confidence" class="text-2xl font-bold text-gray-900">0%</div>
-                            <div class="text-sm text-gray-500">Avg Confidence</div>
+                            <div id="avg-confidence" class="stat-value">0%</div>
+                            <div class="stat-label">Avg Confidence</div>
                         </div>
                         <div>
-                            <div id="session-time" class="text-2xl font-bold text-gray-900">00:00</div>
-                            <div class="text-sm text-gray-500">Session Time</div>
+                            <div id="session-time" class="stat-value">00:00</div>
+                            <div class="stat-label">Session Time</div>
                         </div>
                     </div>
                 </div>
@@ -141,37 +143,37 @@
   </div>
 
   <!-- Settings Modal -->
-  <div id="settingsModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
-    <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
-        <div class="px-6 py-4 border-b border-gray-200">
-          <h3 class="text-lg font-medium text-gray-900">Camera Settings</h3>
-          <button type="button" id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <div id="settingsModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Camera Settings</h3>
+          <button type="button" id="close-modal" class="modal-close">
+            <svg class="modal-close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
-        <div class="p-6">
-          <div class="mb-6">
-            <label for="camera-select" class="block text-sm font-medium text-gray-700 mb-2">Camera Device</label>
-            <select id="camera-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="camera-select" class="form-label">Camera Device</label>
+            <select id="camera-select" class="form-select">
               <option value="">Select Camera...</option>
             </select>
           </div>
-          <div class="mb-6">
-            <label for="confidence-threshold" class="block text-sm font-medium text-gray-700 mb-2">Confidence Threshold</label>
-            <input type="range" id="confidence-threshold" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" min="0" max="100" value="70">
-            <div class="flex justify-between text-sm text-gray-500 mt-1">
+          <div class="form-group">
+            <label for="confidence-threshold" class="form-label">Confidence Threshold</label>
+            <input type="range" id="confidence-threshold" class="form-range" min="0" max="100" value="70">
+            <div class="form-range-labels">
               <span>0%</span>
-              <span id="threshold-value" class="font-medium">70%</span>
+              <span id="threshold-value" class="form-range-value">70%</span>
               <span>100%</span>
             </div>
           </div>
         </div>
-        <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
-          <button type="button" id="cancel-settings" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md">Close</button>
-          <button type="button" id="save-settings" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md">Save Settings</button>
+        <div class="modal-footer">
+          <button type="button" id="cancel-settings" class="btn-cancel">Close</button>
+          <button type="button" id="save-settings" class="btn-save">Save Settings</button>
         </div>
       </div>
     </div>
