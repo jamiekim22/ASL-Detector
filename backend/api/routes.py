@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect, Request
 from pydantic import BaseModel
 from typing import List
 from ..config import settings
@@ -10,7 +10,7 @@ from ..ml.preprocessor import decode_base64_image, preprocess_image
 from ..ml.mediapipe_handler import detect_hand_roi
 from ..ml.model_loader import idx_to_label
 from ..api.metrics_store import metrics_store
-from ..app import LOG_CACHE
+from starlette.concurrency import run_in_threadpool
 
 router = APIRouter(prefix="/api")
 
@@ -57,7 +57,8 @@ async def predict(request: PredictRequest):
         logger.error(f"Error processing image: {e}")
         raise HTTPException(status_code=400, detail=str(e))
     model = load_model()
-    preds = model.predict(batch)
+    # offload blocking inference to threadpool
+    preds = await run_in_threadpool(model.predict, batch)
     probs = np.squeeze(preds)
     idx = int(np.argmax(probs))
     confidence = float(probs[idx])
@@ -76,11 +77,12 @@ async def get_metrics():
     return MetricsResponse(inference_count=m["inference_count"], average_latency_ms=m["average_latency_ms"])
 
 @router.get("/logs", response_model=LogsResponse, tags=["logs"])
-async def get_logs():
+async def get_logs(request: Request):
     """
     Return the 100 most recent log messages captured in-memory.
     """
-    return LogsResponse(logs=LOG_CACHE[-100:])
+    cache = getattr(request.app.state, 'LOG_CACHE', [])
+    return LogsResponse(logs=cache[-100:])
 
 @router.get("/config", response_model=ConfigResponse, tags=["config"])
 async def get_config():
@@ -104,7 +106,8 @@ async def ws_predict(websocket: WebSocket):
                 await websocket.send_json({"error": f"Invalid image data: {e}"})
                 continue
             model = load_model()
-            preds = model.predict(batch)
+            # offload blocking inference to threadpool
+            preds = await run_in_threadpool(model.predict, batch)
             probs = np.squeeze(preds)
             idx = int(np.argmax(probs))
             confidence = float(probs[idx])

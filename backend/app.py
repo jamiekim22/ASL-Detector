@@ -9,7 +9,8 @@ from loguru import logger
 # In-memory log cache
 LOG_CACHE: list[str] = []
 # Capture INFO+ messages to cache
-logger.add(lambda record: LOG_CACHE.append(record["message"]), level="INFO")
+# Sink receives formatted message, so append msg directly
+logger.add(lambda msg: LOG_CACHE.append(msg), level="INFO", format="{message}")
 
 app = FastAPI(
     title=settings.app_name,
@@ -17,6 +18,9 @@ app = FastAPI(
     description="ASL Detector backend API",
     debug=settings.debug
 )
+
+# expose in-memory log cache on app state for routes
+app.state.LOG_CACHE = LOG_CACHE
 
 app.add_middleware(
     CORSMiddleware,

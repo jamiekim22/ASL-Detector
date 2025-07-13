@@ -63,3 +63,18 @@ def test_metrics_endpoint():
     assert response.status_code == 200
     data = response.json()
     assert "inference_count" in data and "average_latency_ms" in data
+
+@pytest.mark.parametrize("img_path", glob.glob(os.path.join(os.path.dirname(__file__), '..', 'ml_development', 'data', 'asl_test', '*_test.*')))
+def test_ws_predict_all_letters(monkeypatch, img_path):
+    settings.model_path = os.path.join(os.path.dirname(__file__), '..', 'ml_development', 'asl_model.h5')
+
+    with open(img_path, 'rb') as f:
+        encoded = base64.b64encode(f.read()).decode('utf-8')
+    prefix = 'data:image/jpeg;base64,' if img_path.lower().endswith('.jpg') else 'data:image/png;base64,'
+
+    with client.websocket_connect('/api/ws/predict') as ws:
+        ws.send_text(prefix + encoded)
+        data = ws.receive_json()
+
+    expected = os.path.splitext(os.path.basename(img_path))[0].split('_')[0]
+    assert data.get('sign') == expected, f"WS predicted {data.get('sign')} expected {expected}"
