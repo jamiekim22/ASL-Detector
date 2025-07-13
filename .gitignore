@@ -41,7 +41,7 @@ mlruns/
 training_logs/
 
 # Large raw training data
-ml_development/data/
+ml_development/data/asl_train/
 ml_development/processed_data/
 *.zip
 *.tar.gz
