@@ -15,7 +15,7 @@ async function listCameras() {
     console.error('Error enumerating devices:', err);
   }
 }
-w
+
 function populateCameraSelect(devices) {
   console.log('Populating camera select with devices:', devices);
   select.innerHTML = '';
