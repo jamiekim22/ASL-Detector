@@ -1,9 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
-  // Threshold slider functionality
   const thresholdSlider = document.getElementById('confidence-threshold');
   const thresholdValue = document.getElementById('threshold-value');
   if (thresholdSlider && thresholdValue) {
-    // Initialize display
     thresholdValue.textContent = `${thresholdSlider.value}%`;
     thresholdSlider.addEventListener('input', () => {
       thresholdValue.textContent = `${thresholdSlider.value}%`;
@@ -18,14 +16,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (settingsBtn && settingsModal) {
     settingsBtn.addEventListener('click', () => {
-      settingsModal.classList.remove('hidden');
+      settingsModal.style.display = 'flex';
     });
   }
 
   [closeModalBtn, cancelBtn].forEach(btn => {
     if (btn) {
       btn.addEventListener('click', () => {
-        settingsModal.classList.add('hidden');
+        settingsModal.style.display = 'none';
       });
     }
   });
@@ -33,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Close modal when clicking outside
   settingsModal?.addEventListener('click', (e) => {
     if (e.target === settingsModal) {
-      settingsModal.classList.add('hidden');
+      settingsModal.style.display = 'none';
     }
   });
 

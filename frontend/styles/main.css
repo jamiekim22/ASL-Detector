@@ -6,7 +6,7 @@
 * This file contains Tailwind CSS component definitions.
 * It is processed by Tailwind to generate the final CSS output.
 * If editing this file, ensure to rebuild the CSS using the Tailwind CLI or your build tool.
-    npx tailwindcss -i ./styles/main.css -o ./styles/output.css --build
+    npx tailwindcss -i ./styles/main.css -o ./styles/output.css --minify
 */
 
 @layer components {
@@ -186,7 +186,8 @@
   
   /* Modal Components */
   .modal-overlay {
-    @apply fixed inset-0 bg-gray-600 bg-opacity-50 hidden;
+    @apply fixed inset-0 bg-gray-600 bg-opacity-50;
+    display: none;
   }
   
   .modal-container {
