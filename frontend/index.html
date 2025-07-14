@@ -43,7 +43,7 @@
                     <div id="camera-container" class="camera-container">
                         <video id="camera-feed" class="camera-feed" autoplay muted></video>
                         <canvas id="overlay-canvas" class="camera-overlay"></canvas>
-                        
+
                         <!-- Prediction Overlay -->
                         <div id="prediction-overlay" class="prediction-overlay">
                             <div class="prediction-box">
@@ -162,6 +162,15 @@
               <span>0%</span>
               <span id="threshold-value" class="form-range-value">70%</span>
               <span>100%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="frame-rate" class="form-label">Frame Rate (FPS)</label>
+            <input type="range" id="frame-rate" class="form-range" min="1" max="10" value="5">
+            <div class="form-range-labels">
+              <span>1 FPS</span>
+              <span id="frame-rate-value" class="form-range-value">5 FPS</span>
+              <span>10 FPS</span>
             </div>
           </div>
         </div>

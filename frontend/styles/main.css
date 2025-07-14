@@ -91,7 +91,7 @@
   }
   
   .camera-overlay {
-    @apply absolute inset-0;
+    @apply absolute top-4 left-4 w-32 h-32 border-2 border-white rounded-lg shadow-lg bg-gray-900;
   }
   
   .prediction-overlay {
