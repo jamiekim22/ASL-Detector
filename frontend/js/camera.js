@@ -1,7 +1,6 @@
 const video = document.getElementById('camera-feed');
 const select = document.getElementById('camera-select');
-const startBtn = document.getElementById('start-camera');
-const stopBtn = document.getElementById('stop-camera');
+const toggleBtn = document.getElementById('camera-toggle');
 let currentStream = null;
 
 // List available video input devices
@@ -16,7 +15,7 @@ async function listCameras() {
     console.error('Error enumerating devices:', err);
   }
 }
-
+w
 function populateCameraSelect(devices) {
   console.log('Populating camera select with devices:', devices);
   select.innerHTML = '';
@@ -42,8 +41,10 @@ async function startCamera() {
   try {
     currentStream = await navigator.mediaDevices.getUserMedia(constraints);
     video.srcObject = currentStream;
-    startBtn.disabled = true;
-    stopBtn.disabled = false;
+    // Update toggle button to Stop state
+    toggleBtn.querySelector('.btn-label').textContent = 'Stop Camera';
+    toggleBtn.classList.remove('btn-start');
+    toggleBtn.classList.add('btn-stop');
   } catch (err) {
     console.error('Error accessing camera:', err);
   }
@@ -59,8 +60,10 @@ function stopCamera() {
   currentStream.getTracks().forEach((track) => track.stop());
   video.srcObject = null;
   currentStream = null;
-  startBtn.disabled = false;
-  stopBtn.disabled = true;
+  // Update toggle button to Start state
+  toggleBtn.querySelector('.btn-label').textContent = 'Start Camera';
+  toggleBtn.classList.remove('btn-stop');
+  toggleBtn.classList.add('btn-start');
 }
 
 // Wire up event listeners on page load
@@ -68,10 +71,16 @@ window.addEventListener('DOMContentLoaded', () => {
   console.log('DOM loaded, initializing camera controls');
   if (!navigator.mediaDevices) {
     console.error('WebRTC not supported in this browser.');
-    startBtn.disabled = true;
+    toggleBtn.disabled = true;
     return;
   }
   listCameras();
-  startBtn.addEventListener('click', startCamera);
-  stopBtn.addEventListener('click', stopCamera);
+  // Toggle camera on button click
+  toggleBtn.addEventListener('click', () => {
+    if (!currentStream) {
+      startCamera();
+    } else {
+      stopCamera();
+    }
+  });
 });

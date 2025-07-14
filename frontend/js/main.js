@@ -1,12 +1,11 @@
-// Log for verifying script load
 console.log('main.js loaded');
 
 window.addEventListener('DOMContentLoaded', () => {
   console.log('main.js DOMContentLoaded - initializing prediction loop');
   const video = document.getElementById('camera-feed');
   const canvas = document.getElementById('overlay-canvas');
-  const startBtn = document.getElementById('start-camera');
-  const stopBtn = document.getElementById('stop-camera');
+  // Toggle camera start/stop button
+  const toggleBtn = document.getElementById('camera-toggle');
   const statusIndicator = document.getElementById('status-indicator');
   const statusText = document.getElementById('status-text');
   const currentPrediction = document.getElementById('current-prediction');
@@ -19,6 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let ws;
   let captureInterval;
+  let isStreaming = false;
   let predictionsCount = 0;
   let confidenceSum = 0;
   const sessionStart = Date.now();
@@ -99,12 +99,22 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   connectWebSocket();
-
-  startBtn.addEventListener('click', () => {
-    captureInterval = setInterval(sendFrame, 200); // 5 fps
-  });
-
-  stopBtn.addEventListener('click', () => {
-    clearInterval(captureInterval);
+  // Handle start/stop toggle
+  toggleBtn.addEventListener('click', () => {
+    if (!isStreaming) {
+      // Start streaming
+      captureInterval = setInterval(sendFrame, 200); // 5 fps
+      toggleBtn.querySelector('.btn-label').textContent = 'Stop Camera';
+      toggleBtn.classList.remove('btn-start');
+      toggleBtn.classList.add('btn-stop');
+      isStreaming = true;
+    } else {
+      // Stop streaming
+      clearInterval(captureInterval);
+      toggleBtn.querySelector('.btn-label').textContent = 'Start Camera';
+      toggleBtn.classList.remove('btn-stop');
+      toggleBtn.classList.add('btn-start');
+      isStreaming = false;
+    }
   });
 });
