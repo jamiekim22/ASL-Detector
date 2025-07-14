@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 /* 
-* This file contains Tailwind CSS component definitions.
-* It is processed by Tailwind to generate the final CSS output.
+* File processed by Tailwind to generate the final CSS output.
 * If editing this file, ensure to rebuild the CSS using the Tailwind CLI or your build tool.
     npx tailwindcss -i ./styles/main.css -o ./styles/output.css --minify
 */

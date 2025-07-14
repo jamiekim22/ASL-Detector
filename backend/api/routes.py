@@ -101,7 +101,8 @@ async def ws_predict(websocket: WebSocket):
             data = await websocket.receive_text()
             try:
                 img = decode_base64_image(data)
-                batch = preprocess_image(img)
+                hand_img = detect_hand_roi(img)
+                batch = preprocess_image(hand_img)
             except Exception as e:
                 await websocket.send_json({"error": f"Invalid image data: {e}"})
                 continue
