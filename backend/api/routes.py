@@ -1,15 +1,15 @@
 from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect, Request
 from pydantic import BaseModel
 from typing import List
-from ..config import settings
+from config import settings
 import numpy as np
 import time
 from loguru import logger
-from ..ml.model_loader import load_model
-from ..ml.preprocessor import decode_base64_image, preprocess_image
-from ..ml.mediapipe_handler import detect_hand_roi
-from ..ml.model_loader import idx_to_label
-from ..api.metrics_store import metrics_store
+from ml.model_loader import load_model
+from ml.preprocessor import decode_base64_image, preprocess_image
+from ml.mediapipe_handler import detect_hand_roi
+from ml.model_loader import idx_to_label
+from api.metrics_store import metrics_store
 from starlette.concurrency import run_in_threadpool
 
 router = APIRouter(prefix="/api")

@@ -1,6 +1,7 @@
 import cv2
-import mediapipe as mp
 import numpy as np
+import mediapipe as mp
+from config import settings
 
 _mp_hands = mp.solutions.hands
 _mp_drawing = mp.solutions.drawing_utils

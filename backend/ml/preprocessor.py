@@ -2,6 +2,9 @@
 import base64
 import cv2
 import numpy as np
+from PIL import Image
+from io import BytesIO
+from config import settings
 
 TARGET_SIZE = (64, 64) # Target input size for the model (height, width)
 

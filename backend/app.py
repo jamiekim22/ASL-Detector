@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from starlette.middleware.cors import CORSMiddleware
-from .config import settings
-from .api.routes import router as api_router
-from .ml.model_loader import load_model
+from config import settings
+from api.routes import router as api_router
+from ml.model_loader import load_model
 from loguru import logger
 
 # In-memory log cache

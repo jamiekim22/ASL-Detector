@@ -2,36 +2,32 @@
 # Windows: run setup.bat
 # macOS: run ./setup.sh
 
-version: '3.8'
 services:
   frontend:
-    image: nginx:alpine
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: asl-frontend
-    volumes:
-      - ./frontend:/usr/share/nginx/html:ro
-      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
-      - "5000:80"
+      - "3000:80"
     networks:
       - asl-net
-  sign-language-app:
+
+  backend:
     build:
-      context: .
-      dockerfile: backend/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: asl-backend
     volumes:
-      - ./backend/models:/app/backend/models
-      - ./backend/training_data:/app/backend/training_data
-      - ./backend/app:/app/backend/app
-    environment:
-      - DISPLAY=host.docker.internal:0
-      - CAMERA_INDEX=0
-      - PLATFORM=default
+      - ./backend:/app/backend
     ports:
-      - "5001:5001"
-    network_mode: bridge
-    stdin_open: true
+      - "8000:8000"
+    environment:
+      - UVICORN_RELOAD=true
     tty: true
+    networks:
+      - asl-net
+
 networks:
   asl-net:
     driver: bridge

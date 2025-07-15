@@ -1,6 +1,6 @@
 # Tensorflow model loading
 import tensorflow as tf
-from ..config import settings
+from config import settings
 
 _model = None
 
