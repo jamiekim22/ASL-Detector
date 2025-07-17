@@ -112,10 +112,6 @@ def main():
         {
             "path": "ml_development/requirements.txt",
             "description": "ML Development Dependencies"
-        },
-        {
-            "path": "deployment/requirements.txt",
-            "description": "Deployment Dependencies"
         }
     ]
     
